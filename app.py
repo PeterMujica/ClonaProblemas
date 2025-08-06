@@ -1,22 +1,24 @@
 import streamlit as st
-from generador import generar_problemas_pdf
-from PIL import Image
 import pytesseract
+from PIL import Image
+from generador import generar_problemas_pdf
 
-st.set_page_config(page_title="ClonaProblemas", layout="centered")
-st.title("📄 ClonaProblemas: Generador de ejercicios matemáticos")
+st.title("ClonaProblemas: Generador de ejercicios matemáticos")
+st.write("Sube una imagen con un problema matemático")
 
-uploaded_file = st.file_uploader("Sube una imagen con un problema matemático", type=["png", "jpg", "jpeg"])
+imagen = st.file_uploader("Selecciona una imagen", type=["png", "jpg", "jpeg"])
 
-if uploaded_file:
-    image = Image.open(uploaded_file)
-    st.image(image, caption="Imagen cargada", use_column_width=True)
+if imagen:
+    image = Image.open(imagen)
+    st.image(image, caption='Imagen cargada', use_column_width=True)
 
+    # OCR
     texto_detectado = pytesseract.image_to_string(image, lang="spa")
-    st.subheader("🔍 Texto detectado:")
-    st.code(texto_detectado)
+    st.subheader("Texto detectado:")
+    st.text(texto_detectado)
 
+    # Generar PDF
     if st.button("Generar PDF con problemas similares"):
         output_path = generar_problemas_pdf(texto_detectado)
         with open(output_path, "rb") as file:
-            st.download_button("📥 Descargar PDF", data=file, file_name="Problemas_Similares.pdf", mime="application/pdf")
+            st.download_button(label="Descargar PDF", data=file, file_name="problemas_generados.pdf", mime="application/pdf")
