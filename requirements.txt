@@ -1,4 +1,4 @@
 streamlit
-fpdf==1.7.2
-pillow
-pytesseract
+Pillow
+fpdf
+requests

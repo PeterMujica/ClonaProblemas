@@ -27,6 +27,7 @@ def generar_problema(num):
 
 def generar_problemas_pdf(texto_detectado):
     problemas = [generar_problema(i + 1) for i in range(12)]
+
     class PDF(FPDF):
         def header(self):
             self.set_font("Helvetica", size=9)
@@ -38,20 +39,16 @@ def generar_problemas_pdf(texto_detectado):
     pdf = PDF()
     pdf.set_auto_page_break(auto=False)
     pdf.add_page()
-    import os
 
-font_path = os.path.join(os.path.dirname(__file__), "DejaVuSans.ttf")
-pdf.add_font("DejaVu", "", font_path, uni=True)
-pdf.set_font("DejaVu", size=9)
-
-
+    pdf.set_font("Helvetica", size=9)
 
     ancho_caja, alto_caja = 85, 35
     esp_h, esp_v = 10, 10
     inicio_x, inicio_y = 20, 50
 
     for i, problema in enumerate(problemas):
-        if i == 6: pdf.add_page()
+        if i == 6:
+            pdf.add_page()
         col = i % 2
         row = i % 6
         x = inicio_x + col * (ancho_caja + esp_h)
