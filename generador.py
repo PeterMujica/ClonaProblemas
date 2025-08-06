@@ -38,8 +38,12 @@ def generar_problemas_pdf(texto_detectado):
     pdf = PDF()
     pdf.set_auto_page_break(auto=False)
     pdf.add_page()
-    pdf.add_font("DejaVu", "", "DejaVuSans.ttf", uni=True)
+    import os
+
+font_path = os.path.join(os.path.dirname(__file__), "DejaVuSans.ttf")
+pdf.add_font("DejaVu", "", font_path, uni=True)
 pdf.set_font("DejaVu", size=9)
+
 
 
     ancho_caja, alto_caja = 85, 35
