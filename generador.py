@@ -38,7 +38,9 @@ def generar_problemas_pdf(texto_detectado):
     pdf = PDF()
     pdf.set_auto_page_break(auto=False)
     pdf.add_page()
-    pdf.set_font("Helvetica", size=9)
+    pdf.add_font("DejaVu", "", "DejaVuSans.ttf", uni=True)
+pdf.set_font("DejaVu", size=9)
+
 
     ancho_caja, alto_caja = 85, 35
     esp_h, esp_v = 10, 10
