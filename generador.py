@@ -1,3 +1,4 @@
+
 from fpdf import FPDF
 import random
 import os
@@ -23,7 +24,7 @@ def generar_problema(num):
     return (f"{num}. {elemento.capitalize()}, un elemento radiactivo,\n"
             f"   se desintegra exponencialmente. Su vida media\n"
             f"   es de {vida_media} años. ¿Cuánto tardarán\n"
-            f"   {masa_inicial} g en reducirse a {masa_final} g?")
+            f"   {masa_inicial}g en reducirse a {masa_final}g?")
 
 def generar_problemas_pdf(texto_detectado):
     problemas = [generar_problema(i + 1) for i in range(12)]
@@ -54,6 +55,8 @@ def generar_problemas_pdf(texto_detectado):
         x = inicio_x + col * (ancho_caja + esp_h)
         y = inicio_y + row * (alto_caja + esp_v)
         pdf.set_xy(x, y)
+        # Limpia caracteres no compatibles
+        problema = problema.encode('latin-1', 'ignore').decode('latin-1')
         pdf.multi_cell(ancho_caja, 4.5, problema, border=1)
 
     os.makedirs("output", exist_ok=True)
