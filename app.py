@@ -27,3 +27,4 @@ if uploaded_file:
                 file_name="ejercicios_generados.pdf",
                 mime="application/pdf"
             )
+        os.remove(output_path)
